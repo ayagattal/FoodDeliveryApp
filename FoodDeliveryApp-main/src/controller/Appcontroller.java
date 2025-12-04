@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement; 
-import java.sql.ResultSet; // Added for clarity, though not directly used below
+import java.sql.ResultSet; 
 
 import javax.swing.JTextField;
 import javax.swing.JOptionPane;
@@ -18,7 +18,8 @@ import util.Database;
 public class Appcontroller {
 
     private MainFrame main;
-    // Renamed to currentAuthId to reflect that it is the ID from the authentication table
+    // currentAuthId stores the ID of the authenticated user from the auth_users table.
+    // It is used as the foreign key (user_id) for cart_items and orders.
     private int currentAuthId = 0; 
 
     public Appcontroller(MainFrame main) {
@@ -48,88 +49,44 @@ public class Appcontroller {
         main.loginpage.loginBtn.addActionListener(e -> handleLogin());
 
 
-        //  HOMEPAGE  //
+        //  HOMEPAGE  //
         main.homepage.orderButton.addActionListener(e ->
             main.getCardLayout().show(main.getMainPanel(), "menu1")
         );
 
-        // MENU 1 //
-        main.menu1.pizzaBtn.addActionListener(e ->
-            main.getCardLayout().show(main.getMainPanel(), "menu2")
-        );
-        main.menu1.burgerBtn.addActionListener(e ->
-            main.getCardLayout().show(main.getMainPanel(), "menu3")
-        );
-        main.menu1.dessertBtn.addActionListener(e ->
-            main.getCardLayout().show(main.getMainPanel(), "menu4")
-        );
-        main.menu1.homeBtn.addActionListener(e ->
-            main.getCardLayout().show(main.getMainPanel(), "menu1")
-        );
-        main.menu1.cartBtn.addActionListener(e ->
-            main.getCardLayout().show(main.getMainPanel(), "cart")
-        );
-        main.menu1.personBtn.addActionListener(e ->
-            main.getCardLayout().show(main.getMainPanel(), "checkout")
-        );
+        // MENU 1 Navigation listeners
+        main.menu1.pizzaBtn.addActionListener(e -> main.getCardLayout().show(main.getMainPanel(), "menu2"));
+        main.menu1.burgerBtn.addActionListener(e -> main.getCardLayout().show(main.getMainPanel(), "menu3"));
+        main.menu1.dessertBtn.addActionListener(e -> main.getCardLayout().show(main.getMainPanel(), "menu4"));
+        main.menu1.homeBtn.addActionListener(e -> main.getCardLayout().show(main.getMainPanel(), "menu1"));
+        main.menu1.cartBtn.addActionListener(e -> main.getCardLayout().show(main.getMainPanel(), "cart"));
+        main.menu1.personBtn.addActionListener(e -> main.getCardLayout().show(main.getMainPanel(), "checkout"));
 
-        //  MENU 2//
-        main.menu2.backBtn.addActionListener(e ->
-            main.getCardLayout().show(main.getMainPanel(), "menu1")
-        );
-        main.menu2.nextBtn.addActionListener(e ->
-            main.getCardLayout().show(main.getMainPanel(), "menu3")
-        );
-        main.menu2.homeBtn.addActionListener(e ->
-            main.getCardLayout().show(main.getMainPanel(), "menu1")
-        );
-        main.menu2.cartBtn.addActionListener(e ->
-            main.getCardLayout().show(main.getMainPanel(), "cart")
-        );
-        main.menu2.personBtn.addActionListener(e ->
-            main.getCardLayout().show(main.getMainPanel(), "checkout")
-        );
+        // MENU 2 Navigation listeners
+        main.menu2.backBtn.addActionListener(e -> main.getCardLayout().show(main.getMainPanel(), "menu1"));
+        main.menu2.nextBtn.addActionListener(e -> main.getCardLayout().show(main.getMainPanel(), "menu3"));
+        main.menu2.homeBtn.addActionListener(e -> main.getCardLayout().show(main.getMainPanel(), "menu1"));
+        main.menu2.cartBtn.addActionListener(e -> main.getCardLayout().show(main.getMainPanel(), "cart"));
+        main.menu2.personBtn.addActionListener(e -> main.getCardLayout().show(main.getMainPanel(), "checkout"));
 
-        //  MENU 3  //
-        main.menu3.backBtn.addActionListener(e ->
-            main.getCardLayout().show(main.getMainPanel(), "menu2")
-        );
-        main.menu3.nextBtn.addActionListener(e ->
-            main.getCardLayout().show(main.getMainPanel(), "menu4")
-        );
-        main.menu3.homeBtn.addActionListener(e ->
-            main.getCardLayout().show(main.getMainPanel(), "menu1")
-        );
-        main.menu3.cartBtn.addActionListener(e ->
-            main.getCardLayout().show(main.getMainPanel(), "cart")
-        );
-        main.menu3.personBtn.addActionListener(e ->
-            main.getCardLayout().show(main.getMainPanel(), "checkout")
-        );
+        // MENU 3 Navigation listeners
+        main.menu3.backBtn.addActionListener(e -> main.getCardLayout().show(main.getMainPanel(), "menu2"));
+        main.menu3.nextBtn.addActionListener(e -> main.getCardLayout().show(main.getMainPanel(), "menu4"));
+        main.menu3.homeBtn.addActionListener(e -> main.getCardLayout().show(main.getMainPanel(), "menu1"));
+        main.menu3.cartBtn.addActionListener(e -> main.getCardLayout().show(main.getMainPanel(), "cart"));
+        main.menu3.personBtn.addActionListener(e -> main.getCardLayout().show(main.getMainPanel(), "checkout"));
 
-        // menu4 //
-        main.menu4.backBtn.addActionListener(e ->
-            main.getCardLayout().show(main.getMainPanel(), "menu3")
-        );
-        main.menu4.nextBtn.addActionListener(e ->
-            main.getCardLayout().show(main.getMainPanel(), "cart")
-        );
-        main.menu4.homeBtn.addActionListener(e ->
-            main.getCardLayout().show(main.getMainPanel(), "menu1")
-        );
-        main.menu4.cartBtn.addActionListener(e ->
-            main.getCardLayout().show(main.getMainPanel(), "cart")
-        );
-        main.menu4.personBtn.addActionListener(e ->
-            main.getCardLayout().show(main.getMainPanel(), "checkout")
-        );
+        // MENU 4 Navigation listeners
+        main.menu4.backBtn.addActionListener(e -> main.getCardLayout().show(main.getMainPanel(), "menu3"));
+        main.menu4.nextBtn.addActionListener(e -> main.getCardLayout().show(main.getMainPanel(), "cart"));
+        main.menu4.homeBtn.addActionListener(e -> main.getCardLayout().show(main.getMainPanel(), "menu1"));
+        main.menu4.cartBtn.addActionListener(e -> main.getCardLayout().show(main.getMainPanel(), "cart"));
+        main.menu4.personBtn.addActionListener(e -> main.getCardLayout().show(main.getMainPanel(), "checkout"));
 
-        // cart page //
-        main.cartpage.backBtn.addActionListener(e ->
-            main.getCardLayout().show(main.getMainPanel(), "menu4")
-        );
+        // Cart page listeners
+        main.cartpage.backBtn.addActionListener(e -> main.getCardLayout().show(main.getMainPanel(), "menu4"));
         main.cartpage.checkoutBtn.addActionListener(e -> {
-            // Check if user is logged in using currentAuthId
+            // Check if user is logged in
             if (currentAuthId == 0) {
                 JOptionPane.showMessageDialog(main.cartpage.getPanel(), "You must login first to proceed to checkout.", "Login Required", JOptionPane.WARNING_MESSAGE);
                 main.getCardLayout().show(main.getMainPanel(), "login");
@@ -137,31 +94,19 @@ public class Appcontroller {
                 main.getCardLayout().show(main.getMainPanel(), "checkout");
             }
         });
-        main.cartpage.homeBtn.addActionListener(e ->
-            main.getCardLayout().show(main.getMainPanel(), "menu1")
-        );
-        main.cartpage.cartBtn.addActionListener(e ->
-            main.getCardLayout().show(main.getMainPanel(), "cart")
-        );
-        main.cartpage.personBtn.addActionListener(e ->
-            main.getCardLayout().show(main.getMainPanel(), "checkout")
-        );
+        main.cartpage.homeBtn.addActionListener(e -> main.getCardLayout().show(main.getMainPanel(), "menu1"));
+        main.cartpage.cartBtn.addActionListener(e -> main.getCardLayout().show(main.getMainPanel(), "cart"));
+        main.cartpage.personBtn.addActionListener(e -> main.getCardLayout().show(main.getMainPanel(), "checkout"));
 
 
-        // checkout page //
-        main.checkoutpage.homeBtn.addActionListener(e ->
-            main.getCardLayout().show(main.getMainPanel(), "menu1")
-        );
-        main.checkoutpage.cartBtn.addActionListener(e ->
-            main.getCardLayout().show(main.getMainPanel(), "cart")
-        );
-        main.checkoutpage.personBtn.addActionListener(e ->
-            main.getCardLayout().show(main.getMainPanel(), "checkout")
-        );
+        // Checkout page listeners
+        main.checkoutpage.homeBtn.addActionListener(e -> main.getCardLayout().show(main.getMainPanel(), "menu1"));
+        main.checkoutpage.cartBtn.addActionListener(e -> main.getCardLayout().show(main.getMainPanel(), "cart"));
+        main.checkoutpage.personBtn.addActionListener(e -> main.getCardLayout().show(main.getMainPanel(), "checkout"));
 
-        // Place Order validation (Modified for INSERT logic)
+        // Place Order validation and Database INSERT
         main.checkoutpage.placeOrderBtn.addActionListener(e -> {
-            // Check if user is authenticated
+            // Check if user is authenticated (essential for saving order)
             if (currentAuthId == 0) {
                 JOptionPane.showMessageDialog(main.checkoutpage.getPanel(), "Please log in first!", "Error", JOptionPane.ERROR_MESSAGE);
                 main.getCardLayout().show(main.getMainPanel(), "login");
@@ -173,11 +118,10 @@ public class Appcontroller {
                 String address  = main.checkoutpage.addressField.getText();
                 String phone    = main.checkoutpage.numberField.getText();
                 
-                // 1. **INSERT** new order details into the 'users' table 
+                // INSERT new order/shipping details into the 'users' table
                 try (Connection conn = Database.getConnection()) {
                     
-                    // The users table is used here for shipping/order details (as agreed)
-                    // We insert a new row for every new order.
+                    // The users table is used here for storing shipping details associated with an order.
                     String sql = "INSERT INTO users (full_name, address, phone) VALUES (?, ?, ?)";
                     
                     PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -186,63 +130,136 @@ public class Appcontroller {
                     stmt.setString(3, phone);
                     stmt.executeUpdate();
                     
-                    // You would typically retrieve the generated Order ID here 
-                    // try (ResultSet rs = stmt.getGeneratedKeys()) { /* ... */ }
-
+                    // If necessary, retrieve the generated Order ID here (omitted for brevity)
                     
-                    
-                                  
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                     JOptionPane.showMessageDialog(main.checkoutpage.getPanel(),
-                                  "Error while saving the order to the database.", "Database Error", JOptionPane.ERROR_MESSAGE);
+                                    "Error while saving the order to the database.", "Database Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
                 
                 main.getCardLayout().show(main.getMainPanel(), "feedback");
             } else {
                 JOptionPane.showMessageDialog(main.checkoutpage.getPanel(),
-                                  "Please fill all order detail fields correctly!",
-                                  "Missing Information",
-                                  JOptionPane.WARNING_MESSAGE);
+                                    "Please fill all order detail fields correctly!",
+                                    "Missing Information",
+                                    JOptionPane.WARNING_MESSAGE);
             }
         });
 
-        // feedback page //
+        // Feedback page listener
         main.feedbackpage.backBtn.addActionListener(e ->
             main.getCardLayout().show(main.getMainPanel(), "home")
         );
         
-        // Listeners for adding items to the cart
-        // menu 1
+        // --- Listeners for adding items to the cart ---
+        
+        // menu1 items
         for (int i = 0; i < main.menu1.getItems().length; i++) {
             final int index = i;
             main.menu1.addButtons[i].addActionListener(e -> {
-                main.cartpage.addItem(main.menu1.getItems()[index]);
+                FoodItem selectedItem = main.menu1.getItems()[index]; 
+                main.cartpage.addItem(selectedItem);
+
+                // Insert item into the database (cart_items table)
+                try (Connection conn = Database.getConnection()) {
+                    // FIX: Added user_id to satisfy the FOREIGN KEY constraint in the cart_items table
+                    String sql = "INSERT INTO cart_items (user_id, product_name, quantity, price) VALUES (?, ?, ?, ?)";
+                    PreparedStatement stmt = conn.prepareStatement(sql);
+                    
+                    // 1. Set the authenticated user ID
+                    stmt.setInt(1, currentAuthId); 
+                    
+                    // 2. Set item details
+                    stmt.setString(2, selectedItem.getName());
+                    stmt.setInt(3, 1); // Initial quantity = 1
+                    stmt.setDouble(4, selectedItem.getPrice());
+                    stmt.executeUpdate();
+                } catch (SQLException ex) {
+                    // This catch block will now catch the error if currentAuthId is 0 and user_id is NOT NULL, 
+                    // or if there's any other DB error (like connection failure).
+                    ex.printStackTrace();
+                }
+
                 main.getCardLayout().show(main.getMainPanel(), "cart");
             });
         }
-        // menu2
+
+        // menu2 items
         for (int i = 0; i < main.menu2.getItems().length; i++) {
             final int index = i;
             main.menu2.addButtons[i].addActionListener(e -> {
-                main.cartpage.addItem(main.menu2.getItems()[index]);
+                FoodItem selectedItem = main.menu2.getItems()[index];
+                main.cartpage.addItem(selectedItem);
+
+                try (Connection conn = Database.getConnection()) {
+                    // FIX: Added user_id
+                    String sql = "INSERT INTO cart_items (user_id, product_name, quantity, price) VALUES (?, ?, ?, ?)";
+                    PreparedStatement stmt = conn.prepareStatement(sql);
+                    
+                    stmt.setInt(1, currentAuthId); 
+                    
+                    stmt.setString(2, selectedItem.getName());
+                    stmt.setInt(3, 1);
+                    stmt.setDouble(4, selectedItem.getPrice());
+                    stmt.executeUpdate();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+
                 main.getCardLayout().show(main.getMainPanel(), "cart");
             });
         }
-        // menu3
+
+        // menu3 items
         for (int i = 0; i < main.menu3.getItems().length; i++) {
             final int index = i;
             main.menu3.addButtons[i].addActionListener(e -> {
-                main.cartpage.addItem(main.menu3.getItems()[index]);
+                FoodItem selectedItem = main.menu3.getItems()[index];
+                main.cartpage.addItem(selectedItem);
+
+                try (Connection conn = Database.getConnection()) {
+                    // FIX: Added user_id
+                    String sql = "INSERT INTO cart_items (user_id, product_name, quantity, price) VALUES (?, ?, ?, ?)";
+                    PreparedStatement stmt = conn.prepareStatement(sql);
+                    
+                    stmt.setInt(1, currentAuthId); 
+                    
+                    stmt.setString(2, selectedItem.getName());
+                    stmt.setInt(3, 1);
+                    stmt.setDouble(4, selectedItem.getPrice());
+                    stmt.executeUpdate();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+
                 main.getCardLayout().show(main.getMainPanel(), "cart");
             });
         }
-        // menu4
+
+        // menu4 items
         for (int i = 0; i < main.menu4.getItems().length; i++) {
             final int index = i;
             main.menu4.addButtons[i].addActionListener(e -> {
-                main.cartpage.addItem(main.menu4.getItems()[index]);
+                FoodItem selectedItem = main.menu4.getItems()[index];
+                main.cartpage.addItem(selectedItem);
+
+                try (Connection conn = Database.getConnection()) {
+                    // FIX: Added user_id
+                    String sql = "INSERT INTO cart_items (user_id, product_name, quantity, price) VALUES (?, ?, ?, ?)";
+                    PreparedStatement stmt = conn.prepareStatement(sql);
+                    
+                    stmt.setInt(1, currentAuthId); 
+                    
+                    stmt.setString(2, selectedItem.getName());
+                    stmt.setInt(3, 1);
+                    stmt.setDouble(4, selectedItem.getPrice());
+                    stmt.executeUpdate();
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+
                 main.getCardLayout().show(main.getMainPanel(), "cart");
             });
         }
@@ -295,7 +312,7 @@ public class Appcontroller {
         }
     }
 
-    // Placeholders
+    // Placeholders setup
     private void setPlaceholders() {
         setPlaceholder(main.checkoutpage.fullNameField, "Enter full name");
         setPlaceholder(main.checkoutpage.addressField, "Enter your address");
@@ -325,21 +342,21 @@ public class Appcontroller {
         });
     }
 
-    // Validation 
+    // Checkout field validation 
     private boolean isCheckoutValid() {
         JTextField fullName = main.checkoutpage.fullNameField;
         JTextField address  = main.checkoutpage.addressField;
         JTextField number   = main.checkoutpage.numberField;
 
-        // full name
+        // Check full name validity (not empty and not placeholder)
         if (fullName.getText().isEmpty() || fullName.getForeground() == Color.GRAY)
             return false;
 
-        // address
+        // Check address validity (not empty and not placeholder)
         if (address.getText().isEmpty() || address.getForeground() == Color.GRAY)
             return false;
 
-        // number
+        // Check number validity (not empty and not placeholder)
         if (number.getText().isEmpty() || number.getForeground() == Color.GRAY)
             return false;
 

@@ -5,7 +5,8 @@ import javax.swing.*;
 
 public class Checkoutpage {
 
-    private JPanel panel;
+    private JPanel panel; // Main panel using BorderLayout
+    private JPanel contentPanel; // Panel for fields/buttons using null layout
 
     // Buttons exposed for controller
     public JButton placeOrderBtn;
@@ -13,82 +14,100 @@ public class Checkoutpage {
     public JButton cartBtn;
     public JButton personBtn;
 
+    // Text fields exposed for controller
     public JTextField fullNameField;
     public JTextField addressField;
     public JTextField numberField;
 
     public Checkoutpage(MainFrame main) {
 
+        // 1. Initialize the main panel and set BorderLayout
         panel = new JPanel();
-        panel.setBackground(Color.WHITE);
-        panel.setLayout(null);
-        panel.setPreferredSize(new Dimension(350, 600));
+        panel.setBackground(Color.white);
+        panel.setLayout(new BorderLayout()); 
+        
+        // 2. Initialize the content panel (holds the form elements) and keep null layout
+        contentPanel = new JPanel();
+        contentPanel.setLayout(null); 
+        contentPanel.setPreferredSize(new Dimension(500, 650)); // Define preferred size for content area
+        contentPanel.setBackground(Color.white);
 
-        //title
+        // Title
         JLabel title = new JLabel("Enter Your Information");
-        title.setFont(new Font("Arial", Font.BOLD, 20));
-        title.setBounds(60, 60, 250, 40);
-        panel.add(title);
+        title.setFont(new Font("Arial", Font.BOLD, 22));
+        title.setBounds(120, 70, 300, 40); 
+        contentPanel.add(title);
 
-        // -full name
+
+        // ---- FULL NAME ----
         JLabel nameLabel = new JLabel("Full Name:");
         nameLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        nameLabel.setBounds(35, 120, 200, 25);
-        panel.add(nameLabel);
+        nameLabel.setBounds(60, 150, 400, 25);
+        contentPanel.add(nameLabel);
 
         fullNameField = new JTextField();
-        fullNameField.setBounds(35, 145, 280, 35);
+        fullNameField.setBounds(60, 180, 380, 40);
         fullNameField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
-        panel.add(fullNameField);
+        contentPanel.add(fullNameField);
 
-        // @address
+
+        // ---- ADDRESS ----
         JLabel addressLabel = new JLabel("Address:");
         addressLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        addressLabel.setBounds(35, 200, 200, 25);
-        panel.add(addressLabel);
+        addressLabel.setBounds(60, 250, 400, 25);
+        contentPanel.add(addressLabel);
 
         addressField = new JTextField();
-        addressField.setBounds(35, 225, 280, 35);
+        addressField.setBounds(60, 280, 380, 40);
         addressField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
-        panel.add(addressField);
+        contentPanel.add(addressField);
 
-        // phone number
+
+        // ---- PHONE NUMBER ----
         JLabel numberLabel = new JLabel("Mobile Number:");
         numberLabel.setFont(new Font("Arial", Font.PLAIN, 14));
-        numberLabel.setBounds(35, 280, 200, 25);
-        panel.add(numberLabel);
+        numberLabel.setBounds(60, 350, 400, 25);
+        contentPanel.add(numberLabel);
 
         numberField = new JTextField();
-        numberField.setBounds(35, 305, 280, 35);
+        numberField.setBounds(60, 380, 380, 40);
         numberField.setBorder(BorderFactory.createLineBorder(Color.RED, 1));
-        panel.add(numberField);
-        
+        contentPanel.add(numberField);
 
 
-        //placeorder button
+        // ---- PLACE ORDER BUTTON ----
         placeOrderBtn = new JButton("Place Order");
-        placeOrderBtn.setBounds(80, 380, 180, 45);
+        placeOrderBtn.setBounds(150, 470, 200, 50);
         placeOrderBtn.setBackground(Color.decode("#BC1414"));
         placeOrderBtn.setForeground(Color.WHITE);
         placeOrderBtn.setFont(new Font("Arial", Font.BOLD, 14));
         placeOrderBtn.setFocusPainted(false);
-        panel.add(placeOrderBtn);
+        contentPanel.add(placeOrderBtn);
+        
+        // Add content panel to the CENTER of the main panel
+        panel.add(contentPanel, BorderLayout.CENTER);
 
-        //navbar
+
+        // 3. Navbar setup
         JPanel navbar = new JPanel();
-        navbar.setBounds(0, 520, 350, 50);
+        // Use GridLayout for navigation buttons
         navbar.setLayout(new GridLayout(1, 3));
-        panel.add(navbar);
+        // Set the preferred height for the navbar
+        navbar.setPreferredSize(new Dimension(500, 80)); 
 
-        // icon button
-        homeBtn = createIconButton("/view/icons/maison.png", 15, 15);
-        cartBtn = createIconButton("/view/icons/panier.png", 20, 20);
-        personBtn = createIconButton("/view/icons/utilisateur.png", 20, 20);
+        // icon button creation
+        homeBtn = createIconButton("/view/icons/maison.png", 30, 30);
+        cartBtn = createIconButton("/view/icons/panier.png", 30, 30);
+        personBtn = createIconButton("/view/icons/utilisateur.png", 30, 30);
 
         // Add icons to navbar
         navbar.add(homeBtn);
         navbar.add(cartBtn);
         navbar.add(personBtn);
+
+        // 4. Add navbar to the SOUTH position using BorderLayout
+        // This ensures the navbar is always docked at the bottom, regardless of frame size.
+        panel.add(navbar, BorderLayout.SOUTH);
     }
 
     // Utility method for icon buttons

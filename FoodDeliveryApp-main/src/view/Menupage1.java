@@ -204,9 +204,9 @@ public class Menupage1 {
         navbar.setLayout(new GridLayout(1, 3));
         panel.add(navbar);
 
-        homeBtn = createIconButton("/view/icons/maison.png", 15, 15);
-        cartBtn = createIconButton("/view/icons/panier.png", 20, 20);
-        personBtn = createIconButton("/view/icons/utilisateur.png", 20, 20);
+        homeBtn = createIconButton("/view/icons/maison.png", 30, 30);
+        cartBtn = createIconButton("/view/icons/panier.png", 30, 30);
+        personBtn = createIconButton("/view/icons/utilisateur.png", 30, 30);
 
         navbar.add(homeBtn);
         navbar.add(cartBtn);

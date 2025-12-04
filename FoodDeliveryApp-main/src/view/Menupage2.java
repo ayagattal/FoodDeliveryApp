@@ -117,9 +117,9 @@ public class Menupage2 {
         panel.add(navbar);
 
         // ICONS
-        homeBtn = createIconButton("/view/icons/maison.png", 15, 15);
-        cartBtn = createIconButton("/view/icons/panier.png", 20, 20);
-        personBtn = createIconButton("/view/icons/utilisateur.png", 20, 20);
+       homeBtn = createIconButton("/view/icons/maison.png", 30, 30);
+        cartBtn = createIconButton("/view/icons/panier.png", 30, 30);
+        personBtn = createIconButton("/view/icons/utilisateur.png", 30, 30);
 
         navbar.add(homeBtn);
         navbar.add(cartBtn);
