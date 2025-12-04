@@ -190,12 +190,7 @@ public class Appcontroller {
                     // try (ResultSet rs = stmt.getGeneratedKeys()) { /* ... */ }
 
                     
-                    // 2. Logic to save cart items should go here (using the generated Order ID)
                     
-                    JOptionPane.showMessageDialog(main.checkoutpage.getPanel(),
-                                  "Order confirmed successfully! It will be delivered to: " + address,
-                                  "Success",
-                                  JOptionPane.INFORMATION_MESSAGE);
                                   
                 } catch (SQLException ex) {
                     ex.printStackTrace();

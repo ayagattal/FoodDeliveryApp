@@ -37,9 +37,9 @@ public class Menupage4 {
         panel.add(title);
 //grid of 6 items
         int[][] positions = {
-                {40, 60}, {190, 60},
-                {40, 190}, {190, 190},
-                {40, 320}, {190, 320}
+             {80, 70}, {255, 70},
+                 {80, 230}, {255, 230},
+                 {80, 390}, {255, 390}
         };
 
         ImageIcon plusIcon = new ImageIcon(getClass().getResource("/view/icons/ajouter.png"));
@@ -47,62 +47,60 @@ public class Menupage4 {
         ImageIcon finalPlus = new ImageIcon(plusImg);
         
        // FoodItem items[] = {
-        		//  new FoodItem("chessecake",400, "/view/icons/chessecake.png", 75, 75),
-        	//    new FoodItem("strawbery Cake",400, "/view/icons/strawbery cake.png", 75, 75),
-        	  //  new FoodItem("orange Cake",  400, "/view/icons/corange cake.png", 75, 75),
-        	 //   new FoodItem("Lemon Cake", 400, "/view/icons/lemon cake.png", 75, 75),
-        	  //  new FoodItem("Choclat Cake",400, "/view/icons/choclat cake.png", 75, 75),
-        	  //  new FoodItem("vanillastrawbery cake", 400, "/view/icons/vanilla strawbery cake.png", 75, 75)
-        //	};
+            //  new FoodItem("chessecake",400, "/view/icons/chessecake.png", 75, 75),
+          //    new FoodItem("strawbery Cake",400, "/view/icons/strawbery cake.png", 75, 75),
+            //  new FoodItem("orange Cake",  400, "/view/icons/corange cake.png", 75, 75),
+           //   new FoodItem("Lemon Cake", 400, "/view/icons/lemon cake.png", 75, 75),
+            //  new FoodItem("Choclat Cake",400, "/view/icons/choclat cake.png", 75, 75),
+            //  new FoodItem("vanillastrawbery cake", 400, "/view/icons/vanilla strawbery cake.png", 75, 75)
+        //  };
 
         items = new FoodItem[] {
-        	    new FoodItem("chessecake", 400, "/view/icons/chessecake.png", 75, 75),
-        	    new FoodItem("strawbery cake",400, "/view/icons/strawbery cake.png", 75, 75),
-        	    new FoodItem("orange cake",  400, "/view/icons/orange cake.png", 75, 75),
-        	    new FoodItem("lemon cake",       400, "/view/icons/lemon cake.png", 75, 75),
-        	    new FoodItem("choclat cake",    400, "/view/icons/choclat cake.png", 75, 75),
-        	    new FoodItem("vanilla strawbery", 400, "/view/icons/vanilla strawbery cake.png", 75, 75)
-        	};
+              new FoodItem("chessecake", 400, "/view/icons/chessecake.png", 75, 75),
+              new FoodItem("strawbery cake",400, "/view/icons/strawbery cake.png", 75, 75),
+              new FoodItem("orange cake",  400, "/view/icons/orange cake.png", 75, 75),
+              new FoodItem("lemon cake",       400, "/view/icons/lemon cake.png", 75, 75),
+              new FoodItem("choclat cake",    400, "/view/icons/choclat cake.png", 75, 75),
+              new FoodItem("vanilla strawbery", 400, "/view/icons/vanilla strawbery cake.png", 75, 75)
+          };
         addButtons = new JButton[items.length];
 
 
         for (int i = 0; i < positions.length; i++) {
 
             JPanel item = new JPanel();
-            item.setBounds(positions[i][0], positions[i][1], 110, 115);
+            item.setBounds(positions[i][0], positions[i][1],150, 135);
             item.setLayout(null);
             panel.add(item);
             
             // Image
             JLabel imgLabel = new JLabel(items[i].getImage());
-            imgLabel.setBounds(15, 5, 75, 75);
+            imgLabel.setBounds(3, 0, 140, 140);
             item.add(imgLabel);
 
             // Nom
             JLabel nameLabel = new JLabel(items[i].getName());
-            nameLabel.setFont(new Font("Arial", Font.BOLD, 11));
-            nameLabel.setBounds(5, 80, 100, 15);
+            nameLabel.setFont(new Font("Arial", Font.BOLD, 13));
+            nameLabel.setBounds(10, 99, 100, 15);
             item.add(nameLabel);
 
             // Prix
             JLabel priceLabel = new JLabel(items[i].getPrice() + " DA");
             priceLabel.setFont(new Font("Arial", Font.PLAIN, 10));
-            priceLabel.setBounds(5, 95, 80, 15);
+            priceLabel.setBounds(10, 116, 80, 15);
             item.add(priceLabel);
 
             JButton addBtn = new JButton(finalPlus);
             addBtn.setBorderPainted(false);
             addBtn.setContentAreaFilled(false);
             addBtn.setFocusPainted(false);
-            addBtn.setBounds(80, 80, 25, 25);
+            addBtn.setBounds(117, 100, 25, 25);
 
             item.add(addBtn);
             addButtons[i] = addBtn; 
-        }
-
-        //back button
+        }//back button
         backBtn = new JButton("Go Back");
-        backBtn.setBounds(40, 450, 100, 45);
+        backBtn.setBounds(100, 570, 110, 51);
         backBtn.setBackground(Color.decode("#BC1414"));
         backBtn.setForeground(Color.WHITE);
         backBtn.setFont(new Font("Arial", Font.BOLD, 14));
@@ -111,7 +109,7 @@ public class Menupage4 {
 
       //next button
         nextBtn = new JButton("Next");
-        nextBtn.setBounds(200, 450, 100, 45);
+        nextBtn.setBounds(260, 570, 110, 51);
         nextBtn.setBackground(Color.decode("#BC1414"));
         nextBtn.setForeground(Color.WHITE);
         nextBtn.setFont(new Font("Arial", Font.BOLD, 14));
@@ -119,7 +117,7 @@ public class Menupage4 {
         panel.add(nextBtn);
 //navbar
         JPanel navbar = new JPanel();
-        navbar.setBounds(0, 520, 350, 50);
+        navbar.setBounds(0, 642, 500, 80);
         navbar.setLayout(new GridLayout(1, 3));
         panel.add(navbar);
 
@@ -150,8 +148,6 @@ public class Menupage4 {
         return items;
     }
 }
-
-
 
 
 /*package view;

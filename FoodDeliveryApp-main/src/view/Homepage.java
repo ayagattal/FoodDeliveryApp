@@ -1,12 +1,7 @@
 package view;
 
-import java.awt.GridBagLayout;
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,77 +12,65 @@ import model.FoodItem;
 public class Homepage {
 
     private JPanel panel;  
-    public JButton orderButton;   //  controller will use this button
+    public JButton orderButton;   // Controller will use this button
 
     public Homepage(MainFrame main) {
 
         panel = new JPanel();
-        panel.setLayout(null); // manual positioning
+        panel.setLayout(null); 
 
-        // Top red panel
-        JPanel redPanel = new JPanel();
-        redPanel.setBackground(Color.decode("#BC1414"));
-        redPanel.setBounds(0, 0, 350, 200);
-        redPanel.setLayout(null); 
-
-        
-        FoodItem photo = new FoodItem("Pi", 1200, "/view/icons/image1.png", 90, 90);
-        JLabel photoLabel = photo.getLabel(); // déjà prêt
-        photoLabel.setBounds(119, 50, 90, 90);
-        redPanel.add(photoLabel, BorderLayout.CENTER);
-        //redPanel.add(photoLabel);
-
-        //  White bottom panel
+       
         JPanel whitePanel = new JPanel();
         whitePanel.setBackground(Color.WHITE);
-        whitePanel.setBounds(0, 200, 350, 400);
-        whitePanel.setLayout(new GridBagLayout()); 
-        // GridBagLayout ==> centers inner content
+        whitePanel.setBounds(0, 300, 500, 400);
+        whitePanel.setLayout(null);   
 
-        //  Inner text panel (vertical stack)
-        JPanel textPanel = new JPanel();
-        textPanel.setBackground(Color.WHITE);
-        textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));
-
-        // Title
+       
         JLabel title = new JLabel("Welcome to Food Delivery App", SwingConstants.CENTER);
-        title.setFont(new Font("Arial", Font.BOLD, 18));
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        title.setFont(new Font("Arial", Font.BOLD, 26));
+        title.setBounds(16, 45, 460, 40);  
+        
 
         // Subtitle
         JLabel subtitle = new JLabel("ENJOY YOUR FOOD!", SwingConstants.CENTER);
-        subtitle.setFont(new Font("Arial", Font.PLAIN, 14));
-        subtitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-        subtitle.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        subtitle.setFont(new Font("Arial", Font.PLAIN, 16));
+        subtitle.setBounds(48, 87, 400, 25);  
+       
 
-        // Order button
+        // Button
         orderButton = new JButton("ORDER NOW");
-        orderButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        orderButton.setFont(new Font("Arial", Font.BOLD, 14));
+        orderButton.setFont(new Font("Arial", Font.BOLD, 16));
         orderButton.setBackground(Color.decode("#58A565"));
         orderButton.setForeground(Color.WHITE);
         orderButton.setFocusPainted(false);
-        orderButton.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
+        orderButton.setBounds(145, 125, 200, 45);  
+ 
+        // Add inside white panel
+        whitePanel.add(title);
+        whitePanel.add(subtitle);
+        whitePanel.add(orderButton);
 
-        // Add everything
-        textPanel.add(title);
-        textPanel.add(subtitle);
-        textPanel.add(orderButton);
+       
+        JPanel redPanel = new JPanel();
+        redPanel.setBackground(Color.decode("#BC1414"));
+        redPanel.setBounds(0, 0, 500, 300);
+        redPanel.setLayout(null);
 
-        whitePanel.add(textPanel);
+        // Ajouter image FoodItem
+        FoodItem photo = new FoodItem("Pi", 1200, "/view/icons/profile.png", 190, 160);
+        JLabel photoLabel = photo.getLabel();
+        photoLabel.setBounds(110, 50, 260, 200);
+        redPanel.add(photoLabel);
 
-        panel.add(whitePanel);
-        panel.add(redPanel);
+        // Add panels to main panel
+        panel.add(whitePanel);  // derrière
+        panel.add(redPanel);    // devant
     }
 
     public JPanel getPanel() {
         return panel;
     }
 }
-
-
-
-
 
 
 
